@@ -8,7 +8,7 @@
 
 #### 3. Gather vault_id, https_proxy_username and https_proxy_password from VGS account and update info in Config.py file.
 
-#### 4. Get sandbox.pem file content from https://www.verygoodsecurity.com/docs/code-samples and save in certs/sandbox.pem
+#### 4. Get sandbox.pem file content from https://www.verygoodsecurity.com/docs/code-samples and save in file sandbox.pem. Add path of file to config.py.
 
     a. This key will be used for https proxy when testing reveal function.
 
