@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>VGS Collect Credit Card Example</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <script
+      type="text/javascript"
+      src="https://js.verygoodvault.com/vgs-collect/2.5.0/vgs-collect.js"
+    ></script>
+
+
+  </head>
+  <body>
+
+    <form id="cc-form">
+        <div class="form-group">
+            <label for="cc-holder" class="form-field">Name</label>
+            <span id="cc-holder" ></span>
+        </div>
+        <div class="form-group">
+            <label for="cc-number" class="form-field">Card number</label>
+            <span id="cc-number" ></span>
+        </div>
+        <div class="form-group">
+            <label for="cc-cvc" class="form-field">CVC</label>
+            <span id="cc-cvc" ></span>
+        </div>
+        <div class="form-group">
+            <label for="cc-expiration-date" class="form-field">Expiration date</label>
+            <span id="cc-expiration-date" ></span>
+        </div>
+
+        <button type="submit" class="btn btn-success btn-block">Submit</button>
+
+    </form>
+
+    <div class="alert alert-warning">
+        <h5 class="text-center">Response</h5>
+        <pre id="result">
+          Submit a form to see result.
+        </pre>
+    </div>
+
+    <script>
+
+        const vgsForm = VGSCollect.create("tntdlsy56lo", "sandbox", function (state) {} );
+
+        const css = {
+            boxSizing: 'border-box',
+            fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI"',
+        };
+
+        vgsForm.field('#cc-holder', {
+            type: 'text',
+            name: 'card_holder',
+            placeholder: 'Card holder',
+            validations: ['required'],
+            css: css,
+        });
+
+        vgsForm.field('#cc-number', {
+            type: 'card-number',
+            name: 'card_number',
+            successColor: '#4F8A10',
+            errorColor: '#D8000C',
+            placeholder: 'Card number',
+            validations: ['required'],
+            css: css,
+        });
+
+        vgsForm.field('#cc-cvc', {
+            type: 'card-security-code',
+            name: 'card_cvc',
+            successColor: '#4F8A10',
+            errorColor: '#D8000C',
+            placeholder: 'CVC',
+            maxLength: 3,
+            validations: ['required', 'validCardSecurityCode'],
+            css: css,
+        });
+
+        vgsForm.field('#cc-expiration-date', {
+            type: 'card-expiration-date',
+            name: 'card_exp',
+            successColor: '#4F8A10',
+            errorColor: '#D8000C',
+            placeholder: 'MM / YY',
+            validations: ['required', 'validCardExpirationDate'],
+            css: css,
+        });
+
+
+        document.getElementById("cc-form").addEventListener(
+            "submit",
+            function (e) {
+                e.preventDefault();
+                vgsForm.submit("/post", {}, function(status, response) {
+                    document.getElementById("result").innerHTML = JSON.stringify(
+                        response.json,
+                        null,
+                        4
+                    );
+                });
+            },
+            function (errors) {
+                document.getElementById("result").innerHTML = errors;
+            }
+        );
+    </script>
+  </body>
+
+</html>

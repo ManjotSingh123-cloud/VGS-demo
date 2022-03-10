@@ -1,0 +1,48 @@
+data:
+  - attributes:
+      created_at: '2022-03-10T03:45:04'
+      destination_override_endpoint: '*'
+      entries:
+        - classifiers: {}
+          config:
+            condition: AND
+            rules:
+              - expression:
+                  field: PathInfo
+                  operator: matches
+                  type: string
+                  values:
+                    - /post
+              - expression:
+                  field: ContentType
+                  operator: equals
+                  type: string
+                  values:
+                    - application/json
+          id: 1fd8f6fc-c5f3-46cd-82a5-7c7b140c9962
+          id_selector: null
+          operation: ENRICH
+          operations: null
+          phase: REQUEST
+          public_token_generator: UUID
+          targets:
+            - body
+          token_manager: PERSISTENT
+          transformer: JSON_PATH
+          transformer_config:
+            - $.card_number
+            - $.card_cvc
+          transformer_config_map: null
+      host_endpoint: echo\.apps\.verygood\.systems
+      id: 3379a3af-253d-4947-830f-8ae28e9a9690
+      ordinal: null
+      port: 80
+      protocol: http
+      source_endpoint: '*'
+      tags:
+        name: navajo-white-octagon
+        source: RouteContainer
+      updated_at: '2022-03-10T03:45:04'
+    id: 3379a3af-253d-4947-830f-8ae28e9a9690
+    type: rule_chain
+version: 1
